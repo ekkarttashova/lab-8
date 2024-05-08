@@ -1,11 +1,10 @@
 #2 задание
 import cv2
-def write_coordinates_to_file(x, y):
-    with open('marker_coordinates.txt', 'a') as file:
-        file.write(f'{x}, {y}\n')
 
 cap = cv2.VideoCapture(0)
 
+center_x = 0
+center_y = 0
 while True:
     success, image = cap.read()
     if not success:
@@ -22,23 +21,22 @@ while True:
         area = cv2.contourArea(contour)
         if area > 1000:
             x, y, a, b = cv2.boundingRect(contour)
-            #Рисуем прямоугльник вокруг контура
+            #рисуем прямоугльник вокруг контура
             cv2.rectangle(image, (x, y), (x + a, y + b), (255, 0, 0), 2)
             center_x = x + a // 2
             center_y = y + b // 2
-            write_coordinates_to_file(center_x, center_y)
+    with open('marker_coordinates.txt', 'a') as file:
+        file.write(f'{center_x}, {center_y}\n')
 
 
-    cv2.imshow('image with countour', image)
+    cv2.imshow('image with label', image)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-        
+
 cap.release()
 
-
 cv2.destroyAllWindows()
-
 
 
 
