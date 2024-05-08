@@ -1,3 +1,4 @@
+#2 задание
 import cv2
 def write_coordinates_to_file(x, y):
     with open('marker_coordinates.txt', 'a') as file:
@@ -28,15 +29,14 @@ while True:
             write_coordinates_to_file(center_x, center_y)
 
 
-    cv2.imshow('image with label', image)
+    cv2.imshow('image with countour', image)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-
-# Освободить камеру
+        
 cap.release()
 
-# Закрыть все окна
+
 cv2.destroyAllWindows()
 
 
